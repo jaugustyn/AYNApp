@@ -1,6 +1,9 @@
-﻿namespace Shared.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
+using Shared.Domain;
 
-public class DbFactory
+namespace Shared.Infrastructure;
+
+public class DbFactory<TContext> : IDbFactory<TContext> where TContext : DbContext
 {
-    
+    public TContext Context { get; }
 }

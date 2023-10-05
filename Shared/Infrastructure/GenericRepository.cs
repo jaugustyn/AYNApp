@@ -1,27 +1,34 @@
-﻿using Shared.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using Shared.Domain;
 using Shared.Entities;
 
-namespace Shared.Repositories;
+namespace Shared.Infrastructure;
 
-public class GenericRepository<TEntity, TContext>: IGenericRepository<TEntity, TContext> where TEntity: class, IEntityBase where TContext : DbContext
+public class GenericRepository<TEntity, TContext>: IGenericRepository<TEntity> where TEntity: class, IEntityBase where TContext : DbContext
 {
-    private readonly AppDbContext
-    public Task<IEnumerable<T>> GetAllAsync()
+    private readonly DbFactory<TContext> _dbFactory;
+    protected DbSet<TEntity> _dbSet;
+
+    protected DbSet<TEntity> DbSet
+    {
+        get => _dbSet ??= _dbFactory.Context.Set<TEntity>();
+    }
+    public Task<IEnumerable<TEntity>> GetAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<T> GetByIdAsync(Guid id)
+    public Task<TEntity> GetByIdAsync(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<T> CreateAsync(T entity)
+    public Task<TEntity> CreateAsync(TEntity entity)
     {
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(Guid id, T entity)
+    public Task UpdateAsync(Guid id, TEntity entity)
     {
         throw new NotImplementedException();
     }
