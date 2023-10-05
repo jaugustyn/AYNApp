@@ -5,18 +5,17 @@ using Shared.Entities;
 
 namespace Shared.Infrastructure;
 
-public class GenericRepository<TEntity, TContext>: IGenericRepository<TEntity> where TEntity: class, IEntityBase where TContext : DbContext
+public abstract class GenericRepository<TEntity, TContext>: IGenericRepository<TEntity> where TEntity: class, IEntityBase where TContext : DbContext
 {
     private readonly DbFactory<TContext> _dbFactory;
+    private DbSet<TEntity> DbSet { get; }
 
     public GenericRepository(DbFactory<TContext> dbFactory, DbSet<TEntity> dbSet)
     {
         _dbFactory = dbFactory;
         DbSet = _dbFactory.Context.Set<TEntity>();
     }
-
-    protected DbSet<TEntity> DbSet { get; }
-
+    
     public async Task<TEntity?> GetByIdAsync(Guid id)
     {
         return await DbSet.FindAsync(id);
