@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Shared.Domain;
 using Shared.Entities;
 
@@ -7,34 +8,33 @@ namespace Shared.Infrastructure;
 public class GenericRepository<TEntity, TContext>: IGenericRepository<TEntity> where TEntity: class, IEntityBase where TContext : DbContext
 {
     private readonly DbFactory<TContext> _dbFactory;
-    protected DbSet<TEntity> _dbSet;
 
-    protected DbSet<TEntity> DbSet
+    public GenericRepository(DbFactory<TContext> dbFactory, DbSet<TEntity> dbSet)
     {
-        get => _dbSet ??= _dbFactory.Context.Set<TEntity>();
-    }
-    public Task<IEnumerable<TEntity>> GetAllAsync()
-    {
-        throw new NotImplementedException();
+        _dbFactory = dbFactory;
+        DbSet = _dbFactory.Context.Set<TEntity>();
     }
 
-    public Task<TEntity> GetByIdAsync(Guid id)
+    protected DbSet<TEntity> DbSet { get; }
+
+    public async Task<TEntity?> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await DbSet.FindAsync(id);
     }
 
-    public Task<TEntity> CreateAsync(TEntity entity)
+    public Task<IQueryable<TEntity>> GetAllAsync(bool trackChanges = false)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(!trackChanges ? DbSet.AsNoTracking() : DbSet);
     }
 
-    public Task UpdateAsync(Guid id, TEntity entity)
+    public Task<IQueryable<TEntity>> GetAllByCondition(Expression<Func<TEntity, bool>> expression, bool trackChanges = false)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(!trackChanges ? DbSet.Where(expression).AsNoTracking() : DbSet.Where(expression));
     }
 
-    public Task DeleteAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+    public Task CreateAsync(TEntity entity) => Task.FromResult(DbSet.AddAsync(entity));
+
+    public Task UpdateAsync(TEntity entity) => Task.FromResult(DbSet.Update(entity));
+
+    public Task DeleteAsync(TEntity entity) => Task.FromResult(DbSet.Remove(entity));
 }

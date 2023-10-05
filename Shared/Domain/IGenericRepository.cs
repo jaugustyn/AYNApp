@@ -5,9 +5,9 @@ namespace Shared.Domain;
 
 public interface IGenericRepository<TEntity> where TEntity : class, IEntityBase
 {
-    Task<IEnumerable<TEntity>> GetAllAsync();
-    Task<TEntity> GetByIdAsync(Guid id);
-    Task<TEntity> CreateAsync(TEntity entity);
-    Task UpdateAsync(Guid id, TEntity entity);
-    Task DeleteAsync(Guid id);
+    Task<TEntity?> GetByIdAsync(Guid id);
+    Task<IQueryable<TEntity>> GetAllAsync(bool trackChanges);
+    Task CreateAsync(TEntity entity);
+    Task UpdateAsync(TEntity entity);
+    Task DeleteAsync(TEntity entity);
 }
