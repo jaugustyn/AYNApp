@@ -1,6 +1,8 @@
-﻿namespace Shared.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
 
-public interface IDbFactory
+namespace Shared.Domain;
+
+public interface IDbFactory<TContext> where TContext : DbContext
 {
-    
+    TContext Context { get; }
 }

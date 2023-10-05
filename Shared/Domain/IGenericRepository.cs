@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.Entities;
 
-namespace Shared.Repositories;
+namespace Shared.Domain;
 
-public interface IGenericRepository<TEntity, TContext> where TEntity : class, IEntityBase where TContext : DbContext
+public interface IGenericRepository<TEntity> where TEntity : class, IEntityBase
 {
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<T> GetByIdAsync(Guid id);
-    Task<T> CreateAsync(T entity);
-    Task UpdateAsync(Guid id, T entity);
+    Task<IEnumerable<TEntity>> GetAllAsync();
+    Task<TEntity> GetByIdAsync(Guid id);
+    Task<TEntity> CreateAsync(TEntity entity);
+    Task UpdateAsync(Guid id, TEntity entity);
     Task DeleteAsync(Guid id);
 }

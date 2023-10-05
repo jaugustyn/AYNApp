@@ -1,6 +1,9 @@
-﻿namespace Shared.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
 
-public interface IUnitOfWork
+namespace Shared.Domain;
+
+public interface IUnitOfWork<TContext> where TContext: DbContext
 {
-    
+    Task<int> CommitAsync();
+    TContext Context { get; }
 }
