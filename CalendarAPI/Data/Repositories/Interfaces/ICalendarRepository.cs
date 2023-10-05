@@ -1,6 +1,8 @@
-﻿namespace CalendarAPI.Data.Repositories;
+﻿using CalendarAPI.Models;
 
-public interface ICalendarRepository
+namespace CalendarAPI.Data.Repositories.Interfaces;
+
+public interface ICalendarRepository: IBaseRepository<Calendar>
 {
     
 }

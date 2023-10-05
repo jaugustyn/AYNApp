@@ -1,14 +1,15 @@
-﻿namespace CalendarAPI.Models;
+﻿using Shared.Entities;
 
-public class CalendarEntry : IEntityBase
+namespace CalendarAPI.Models;
+
+public class CalendarEvent : IEntityBase
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
     public string Notes { get; set; }
     public DateTimeOffset StartDate { get; set; }
-    public TimeSpan Duration  { get; set; }
+    public DateTimeOffset FinishDate { get; set; }
     public bool Active { get; set; }
-    public bool IsDone { get; set; }
     
     public Guid UserId { get; set; }
     // public User User { get; set; }

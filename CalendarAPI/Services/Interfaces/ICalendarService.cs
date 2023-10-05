@@ -5,9 +5,9 @@ namespace CalendarAPI.Services;
 
 public interface ICalendarService
 {
-    Task<Calendar> GetByIdAsync(Guid calendarId);
-    Task<IQueryable<Calendar>> GetMyCalendars(Guid userId);
-    Task CreateCalendar(Guid userId, ManipulationCalendarDto calendarDto);
-    Task UpdateCalendar(Guid userId, ManipulationCalendarDto calendarDto);
+    Task<CalendarDto?> GetByIdAsync(Guid calendarId);
+    Task<IQueryable<CalendarDto>> GetMyCalendars(Guid userId);
+    Task<CalendarDto> CreateCalendar(Guid userId, ManipulationCalendarDto calendarDto);
+    Task UpdateCalendar(Guid calendarId, ManipulationCalendarDto calendarDto);
     Task DeleteCalendar(Guid calendarId);
 }

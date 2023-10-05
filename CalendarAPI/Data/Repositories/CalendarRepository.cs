@@ -1,6 +1,11 @@
-﻿namespace ToDoAPI.Data.Repositories;
+﻿using CalendarAPI.Data.Repositories.Interfaces;
+using CalendarAPI.Models;
 
-public class CalendarRepository
+namespace CalendarAPI.Data.Repositories;
+
+public class CalendarRepository: BaseRepository<Calendar>, ICalendarRepository
 {
-    
+    public CalendarRepository(AppDbContext appDbContext) : base(appDbContext)
+    {
+    }
 }

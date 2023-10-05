@@ -1,14 +1,16 @@
 ﻿using System.Linq.Expressions;
+using CalendarAPI.Data.Repositories.Interfaces;
+using CalendarAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using ToDoAPI.Models;
+using Shared.Entities;
 
-namespace ToDoAPI.Data.Repositories;
+namespace CalendarAPI.Data.Repositories;
 
 public class BaseRepository<T>: IBaseRepository<T> where T : class, IEntityBase
 {
-    private AppDbContext _context;
-    public BaseRepository(AppDbContext appDbContext)
+    private readonly AppDbContext _context;
+
+    protected BaseRepository(AppDbContext appDbContext)
     {
         _context = appDbContext;
     }
@@ -23,7 +25,7 @@ public class BaseRepository<T>: IBaseRepository<T> where T : class, IEntityBase
         return Task.FromResult(!trackChanges ? _context.Set<T>().AsNoTracking() : _context.Set<T>());
     }
 
-    public Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
+    public Task<IQueryable<T>> FindAllByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
     {
         return Task.FromResult(!trackChanges ? _context.Set<T>().Where(expression).AsNoTracking() : _context.Set<T>().Where(expression));
     }

@@ -3,7 +3,7 @@ using CalendarAPI.Models;
 
 namespace CalendarAPI.Data.Repositories;
 
-public class CalendarEventRepository: BaseRepository<CalendarEvent>, ICalendarEntryRepository
+public class CalendarEventRepository: BaseRepository<CalendarEvent>, ICalendarEventRepository
 {
     public CalendarEventRepository(AppDbContext appDbContext) : base(appDbContext)
     {

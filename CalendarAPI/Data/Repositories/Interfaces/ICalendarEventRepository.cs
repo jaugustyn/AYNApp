@@ -2,7 +2,6 @@
 
 namespace CalendarAPI.Data.Repositories.Interfaces;
 
-public interface ICalendarEventRepository
+public interface ICalendarEventRepository: IBaseRepository<CalendarEvent>
 {
-    Task<IQueryable<CalendarEvent>> GetAllByCalendarId(Guid calendarId);
 }
