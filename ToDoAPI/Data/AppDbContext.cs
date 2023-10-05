@@ -1,14 +1,14 @@
-﻿using CalendarAPI.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using ToDoAPI.Models;
 
-namespace CalendarAPI.Data;
+namespace ToDoAPI.Data;
 
 public class AppDbContext: DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options): base(options) { }
     
-    public DbSet<Calendar> Calendars { get; set; }
-    public DbSet<CalendarEvent> CalendarEvents { get; set; }
+    public DbSet<ToDo> ToDos { get; set; }
+    public DbSet<ToDoList> ToDoLists { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
