@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Shared.Entities;
 
 namespace ToDoAPI.Models;
 
-public class ToDoList
+public class ToDoList: IEntityBase
 {
     
     [Key]

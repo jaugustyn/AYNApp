@@ -4,6 +4,7 @@ using Shared.Domain;
 namespace Shared.Infrastructure;
 
 #nullable disable
+// Instead of directly injecting dbcontext into repositories i will use dbfactory to inject it through DI in case of having multiple databases
 public class DbFactory<TContext> : IDisposable, IDbFactory<TContext> where TContext : DbContext
 {
     private bool _isDisposed;

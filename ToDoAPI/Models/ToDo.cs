@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Shared.Entities;
 
 namespace ToDoAPI.Models;
 
-public class ToDo
+public class ToDo: IEntityBase
 {
     [Key]
     public Guid Id { get; set; }
