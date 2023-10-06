@@ -9,7 +9,7 @@ public class DbFactory<TContext> : IDisposable, IDbFactory<TContext> where TCont
     private bool _isDisposed;
     private readonly Func<TContext> _func;
     private TContext _context;
-    public TContext Context => _context ?? _func.Invoke();
+    public TContext Context => _context ??= _func.Invoke();
     public DbFactory(Func<TContext> dbContextFactory)
     {
         _func = dbContextFactory;
