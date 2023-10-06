@@ -20,20 +20,23 @@ public abstract class GenericRepository<TEntity, TContext>: IGenericRepository<T
     {
         return await DbSet.FindAsync(id);
     }
-
-    public Task<IQueryable<TEntity>> GetAllAsync(bool trackChanges = false)
+    public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
-        return Task.FromResult(!trackChanges ? DbSet.AsNoTracking() : DbSet);
+        return await DbSet.ToListAsync();
     }
 
-    public Task<IQueryable<TEntity>> GetAllByCondition(Expression<Func<TEntity, bool>> expression, bool trackChanges = false)
+    public async Task<IEnumerable<TEntity>> GetByConditionAsync(Expression<Func<TEntity, bool>> expression)
     {
-        return Task.FromResult(!trackChanges ? DbSet.Where(expression).AsNoTracking() : DbSet.Where(expression));
+        return await DbSet.Where(expression).ToListAsync();
     }
 
-    public Task CreateAsync(TEntity entity) => Task.FromResult(DbSet.AddAsync(entity));
+    public async Task<TEntity> CreateAsync(TEntity entity)
+    {
+        var result = await DbSet.AddAsync(entity);
+        return result.Entity;
+    }
 
-    public Task UpdateAsync(TEntity entity) => Task.FromResult(DbSet.Update(entity));
+    public void Update(TEntity entity) => DbSet.Update(entity);
 
-    public Task DeleteAsync(TEntity entity) => Task.FromResult(DbSet.Remove(entity));
+    public void Delete(TEntity entity) => DbSet.Remove(entity);
 }

@@ -18,8 +18,8 @@ public class DbFactory<TContext> : IDisposable, IDbFactory<TContext> where TCont
     {
         if (!_isDisposed && _context is not null)
         {
-            _isDisposed = true;
             _context.Dispose();
+            _isDisposed = true;
         }
     }
 }
