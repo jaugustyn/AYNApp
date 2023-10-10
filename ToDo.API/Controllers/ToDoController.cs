@@ -8,9 +8,9 @@ namespace ToDo.API.Controllers;
 [ApiController]
 public class ToDoController : ControllerBase
 {
-    private readonly IToDoService _todoService;
+    private readonly ToDoService _todoService;
 
-    public ToDoController(IToDoService todoService)
+    public ToDoController(ToDoService todoService)
     {
         _todoService = todoService;
     }
@@ -70,5 +70,11 @@ public class ToDoController : ControllerBase
         await _todoService.DeleteAsync(toDoId);
 
         return NoContent();
+    }
+    
+    [HttpGet("GetAllByListId")]
+    public async Task<ActionResult<IEnumerable<ToDoDto>>> GetAllByListId(Guid listId)
+    {
+        return Ok(await _todoService.GetAllByListIdAsync(listId));
     }
 }
