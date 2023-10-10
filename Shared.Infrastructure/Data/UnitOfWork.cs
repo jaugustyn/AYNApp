@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shared.Domain;
+using Shared.Domain.Interfaces;
 
-namespace Shared.Infrastructure;
+namespace Shared.Infrastructure.Data;
 
 public class UnitOfWork<TContext> : IUnitOfWork<TContext>  where TContext : DbContext
 {

@@ -1,4 +1,4 @@
-﻿using ToDo.Domain.Models.DTOs;
+﻿using ToDo.Domain.DTOs;
 
 namespace ToDo.API.Services;
 

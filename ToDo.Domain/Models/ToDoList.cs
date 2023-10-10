@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Shared.Entities;
+using Shared.Domain.Interfaces;
 
 namespace ToDo.Domain.Models;
 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ToDo.API.Services;
-using ToDo.Domain.Models.DTOs;
+using ToDo.Domain.DTOs;
 
 namespace ToDo.API.Controllers;
 

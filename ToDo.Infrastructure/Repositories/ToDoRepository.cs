@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shared.Entities;
 using Shared.Infrastructure;
+using Shared.Infrastructure.Data;
 using ToDo.Domain.Interfaces;
 using ToDo.Infrastructure.Data;
 

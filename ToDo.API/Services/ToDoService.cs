@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.Domain;
 using Shared.Infrastructure;
+using ToDo.Domain.DTOs;
 using ToDo.Domain.Interfaces;
-using ToDo.Domain.Models.DTOs;
 using ToDo.Infrastructure.Data;
 
 namespace ToDo.API.Services;

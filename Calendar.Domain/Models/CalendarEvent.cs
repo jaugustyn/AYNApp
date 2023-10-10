@@ -1,4 +1,4 @@
-﻿using Shared.Entities;
+﻿using Shared.Domain.Interfaces;
 
 namespace Calendar.Domain.Models;
 

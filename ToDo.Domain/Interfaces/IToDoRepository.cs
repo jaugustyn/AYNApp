@@ -1,5 +1,5 @@
 ﻿using Shared.Domain;
-using Shared.Entities;
+using Shared.Domain.Interfaces;
 
 namespace ToDo.Domain.Interfaces;
 

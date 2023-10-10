@@ -1,4 +1,4 @@
-﻿namespace Shared.Entities;
+﻿namespace Shared.Domain.Interfaces;
 
 public interface IEntityBase
 {

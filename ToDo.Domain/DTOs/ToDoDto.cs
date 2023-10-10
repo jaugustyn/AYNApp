@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ToDo.Domain.Models.DTOs;
+namespace ToDo.Domain.DTOs;
 
 public class ToDoDto : ToDoManipulationDto
 {
@@ -12,7 +12,7 @@ public class ToDoDto : ToDoManipulationDto
 
     // public Guid ToDoListId { get; set; }
 
-    public static ToDoDto TodoToDto(ToDo toDo)
+    public static ToDoDto TodoToDto(Models.ToDo toDo)
     {
         return new ToDoDto()
         {

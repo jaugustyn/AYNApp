@@ -1,9 +1,8 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Shared.Domain;
-using Shared.Entities;
+using Shared.Domain.Interfaces;
 
-namespace Shared.Infrastructure;
+namespace Shared.Infrastructure.Data;
 
 public abstract class GenericRepository<TEntity, TContext>: IGenericRepository<TEntity> where TEntity: class, IEntityBase where TContext : DbContext
 {

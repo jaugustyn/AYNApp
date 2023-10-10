@@ -1,4 +1,4 @@
-﻿namespace ToDo.Domain.Models.DTOs;
+﻿namespace ToDo.Domain.DTOs;
 
 public class ToDoManipulationDto
 {

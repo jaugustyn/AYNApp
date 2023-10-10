@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Shared.Domain;
+namespace Shared.Domain.Interfaces;
 
 public interface IDbFactory<TContext> where TContext : DbContext
 {

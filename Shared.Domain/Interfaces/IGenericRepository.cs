@@ -1,8 +1,6 @@
 ﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
-using Shared.Entities;
 
-namespace Shared.Domain;
+namespace Shared.Domain.Interfaces;
 
 public interface IGenericRepository<TEntity> where TEntity : class, IEntityBase
 {
