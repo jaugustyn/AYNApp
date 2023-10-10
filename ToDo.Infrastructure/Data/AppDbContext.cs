@@ -22,4 +22,21 @@ public class AppDbContext : DbContext
             entity.AddProperty("UpdatedDate", typeof(DateTime));
         }
     }
+
+    public override int SaveChanges()
+    {
+        var entries = ChangeTracker.Entries()
+            .Where(a => a.State is EntityState.Added or EntityState.Modified);
+
+        foreach (var entry in entries)
+        {
+            entry.Property("UpdateDate").CurrentValue = DateTime.Now;
+
+            if (entry.State == EntityState.Added)
+            {
+                entry.Property("CreatedDate").CurrentValue = DateTime.Now;
+            }
+        }
+        return base.SaveChanges();
+    }
 }

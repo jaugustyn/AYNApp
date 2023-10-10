@@ -22,7 +22,7 @@ namespace ToDoAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ToDoAPI.Models.ToDo", b =>
+            modelBuilder.Entity("ToDo.Domain.Models.ToDo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,15 +45,20 @@ namespace ToDoAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ToDoListId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ToDoListId");
+
                     b.ToTable("ToDos");
                 });
 
-            modelBuilder.Entity("ToDoAPI.Models.ToDoList", b =>
+            modelBuilder.Entity("ToDo.Domain.Models.ToDoList", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,6 +77,22 @@ namespace ToDoAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ToDoLists");
+                });
+
+            modelBuilder.Entity("ToDo.Domain.Models.ToDo", b =>
+                {
+                    b.HasOne("ToDo.Domain.Models.ToDoList", "ToDoList")
+                        .WithMany("ToDos")
+                        .HasForeignKey("ToDoListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ToDoList");
+                });
+
+            modelBuilder.Entity("ToDo.Domain.Models.ToDoList", b =>
+                {
+                    b.Navigation("ToDos");
                 });
 #pragma warning restore 612, 618
         }
