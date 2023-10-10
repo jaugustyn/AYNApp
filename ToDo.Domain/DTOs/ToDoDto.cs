@@ -10,7 +10,7 @@ public class ToDoDto : ToDoManipulationDto
     public DateTimeOffset? StartDate { get; set; }
     public DateTimeOffset? FinishDate { get; set; }
 
-    // public Guid ToDoListId { get; set; }
+    public Guid ToDoListId { get; set; }
 
     public static ToDoDto TodoToDto(Models.ToDo toDo)
     {
@@ -20,8 +20,8 @@ public class ToDoDto : ToDoManipulationDto
             Description = toDo.Description,
             Title = toDo.Title,
             FinishDate = toDo.FinishDate,
-            StartDate = toDo.StartDate
-            // ToDoListId = toDo.ToDoListId,
+            StartDate = toDo.StartDate,
+            ToDoListId = toDo.ToDoListId,
         };
     }
 }

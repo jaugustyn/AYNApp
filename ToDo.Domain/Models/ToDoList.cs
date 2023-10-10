@@ -7,4 +7,7 @@ public class ToDoList : IEntityBase
 {
     [Key] public Guid Id { get; set; }
     public string Title { get; set; }
+    
+
+    public ICollection<ToDo> ToDos { get; set; }
 }
