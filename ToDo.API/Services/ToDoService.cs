@@ -7,7 +7,7 @@ using ToDo.Infrastructure.Data;
 
 namespace ToDo.API.Services;
 
-public class ToDoService: IToDoService
+public class ToDoService
 {
     private readonly IToDoUnitOfWork _unitOfWork;
     private readonly IToDoRepository _toDoRepository;
@@ -21,6 +21,13 @@ public class ToDoService: IToDoService
     {
         var todos = await _toDoRepository.GetAllAsync();
         var todosDto = todos.Select(ToDoDto.TodoToDto);
+
+        return todosDto;
+    }
+    public async Task<IEnumerable<ToDoDto>> GetAllByListIdAsync(Guid listId)
+    {
+        var todos = await _toDoRepository.GetByConditionAsync(x => x.ToDoListId.Equals(listId));
+        var todosDto = todos.Select(ToDoDto.TodoToDto).OrderBy(x => x.StartDate);
 
         return todosDto;
     }
@@ -39,7 +46,8 @@ public class ToDoService: IToDoService
             Title = entity.Title,
             Description = entity.Description,
             StartDate = entity.StartDate,
-            FinishDate = entity.FinishDate
+            FinishDate = entity.FinishDate,
+            ToDoListId = entity.ToDoListId
         };
 
         var newTodo = await _toDoRepository.CreateAsync(todo);
@@ -58,7 +66,8 @@ public class ToDoService: IToDoService
             Title = entity.Title,
             Description = entity.Description,
             StartDate = entity.StartDate,
-            FinishDate = entity.FinishDate
+            FinishDate = entity.FinishDate,
+            ToDoListId = entity.ToDoListId
         };
 
         await _toDoRepository.UpdateAsync(todo);
