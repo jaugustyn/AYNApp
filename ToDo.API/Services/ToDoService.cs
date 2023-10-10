@@ -1,26 +1,20 @@
-﻿using ToDo.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Shared.Domain;
+using Shared.Infrastructure;
+using ToDo.Domain.Interfaces;
 using ToDo.Domain.Models.DTOs;
+using ToDo.Infrastructure.Data;
 
 namespace ToDo.API.Services;
 
-public class ToDoService : IToDoService
+public class ToDoService: IToDoService
 {
+    private readonly IToDoUnitOfWork _unitOfWork;
     private readonly IToDoRepository _toDoRepository;
-
-    public ToDoService(IToDoRepository toDoRepository)
+    public ToDoService(IToDoUnitOfWork unitOfWork, IToDoRepository toDoRepository)
     {
+        _unitOfWork = unitOfWork;
         _toDoRepository = toDoRepository;
-    }
-
-    //Users not implemented yet
-    public async Task<IEnumerable<ToDoDto>> GetAllByUserIdAsync(Guid userId)
-    {
-        var todos = await _toDoRepository.GetAllAsync();
-        // var userTodos = todos.Where(x => x.UserId.Equals(userId)).Select(ToDoDto.TodoToDto)
-        //     .OrderByDescending(x => x.StartDate).ToList();
-        var todoslist = todos.Select(ToDoDto.TodoToDto).OrderBy(x => x.StartDate).ToList();
-
-        return todoslist;
     }
 
     public async Task<IEnumerable<ToDoDto>> GetAllAsync()
@@ -49,6 +43,7 @@ public class ToDoService : IToDoService
         };
 
         var newTodo = await _toDoRepository.CreateAsync(todo);
+        await _unitOfWork.CommitAsync();
 
         return ToDoDto.TodoToDto(newTodo);
     }
@@ -66,12 +61,15 @@ public class ToDoService : IToDoService
             FinishDate = entity.FinishDate
         };
 
-        await _toDoRepository.UpdateAsync(todoId, todo);
+        await _toDoRepository.UpdateAsync(todo);
+        await _unitOfWork.CommitAsync();
     }
 
-    public async Task DeleteAsync(Guid toDoId)
+    public async Task DeleteAsync(Guid todoId)
     {
-        await _toDoRepository.DeleteAsync(toDoId);
+        var todo = await _toDoRepository.GetByIdAsync(todoId);
+        await _toDoRepository.DeleteAsync(todo);
+        await _unitOfWork.CommitAsync();
     }
 
     public async Task<IEnumerable<ToDoDto>> SearchAsync(string keyPhrase)

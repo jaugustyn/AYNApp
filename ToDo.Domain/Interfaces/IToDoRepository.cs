@@ -1,10 +1,8 @@
-﻿namespace ToDo.Domain.Interfaces;
+﻿using Shared.Domain;
+using Shared.Entities;
 
-public interface IToDoRepository
+namespace ToDo.Domain.Interfaces;
+
+public interface IToDoRepository : IGenericRepository<Models.ToDo>
 {
-    Task<Models.ToDo> GetByIdAsync(Guid id);
-    Task<List<Models.ToDo>> GetAllAsync();
-    Task<Models.ToDo> CreateAsync(Models.ToDo entity);
-    Task UpdateAsync(Guid id, Models.ToDo entity);
-    Task DeleteAsync(Guid id);
 }
