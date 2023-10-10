@@ -22,7 +22,9 @@ builder.Services.AddScoped<Func<AppDbContext>>(provider => () => provider.GetSer
 builder.Services.AddScoped<ToDoDbFactory>();
 builder.Services.AddScoped<IToDoUnitOfWork, ToDoUnitOfWork>();
 builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
-builder.Services.AddScoped<IToDoService, ToDoService>();
+builder.Services.AddScoped<IToDoListRepository, ToDoListRepository>();
+builder.Services.AddScoped<ToDoService>();
+builder.Services.AddScoped<ToDoListService>();
 
 var app = builder.Build();
 
