@@ -10,7 +10,7 @@ public abstract class GenericRepository<TEntity, TContext>: IGenericRepository<T
     private readonly DbFactory<TContext> _dbFactory;
     private DbSet<TEntity> DbSet { get; }
 
-    public GenericRepository(DbFactory<TContext> dbFactory, DbSet<TEntity> dbSet)
+    public GenericRepository(DbFactory<TContext> dbFactory)
     {
         _dbFactory = dbFactory;
         DbSet = _dbFactory.Context.Set<TEntity>();
@@ -18,7 +18,7 @@ public abstract class GenericRepository<TEntity, TContext>: IGenericRepository<T
     
     public async Task<TEntity?> GetByIdAsync(Guid id)
     {
-        return await DbSet.FindAsync(id);
+        return await DbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
     }
     public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
@@ -36,7 +36,15 @@ public abstract class GenericRepository<TEntity, TContext>: IGenericRepository<T
         return result.Entity;
     }
 
-    public void Update(TEntity entity) => DbSet.Update(entity);
+    public Task<TEntity> UpdateAsync(TEntity entity)
+    {
+        DbSet.Update(entity);
+        return Task.FromResult(entity);
+    }
 
-    public void Delete(TEntity entity) => DbSet.Remove(entity);
+    public Task<bool> DeleteAsync(TEntity entity)
+    {
+        DbSet.Remove(entity);
+        return Task.FromResult(true);
+    }
 }
