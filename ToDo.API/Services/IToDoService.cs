@@ -4,7 +4,6 @@ namespace ToDo.API.Services;
 
 public interface IToDoService
 {
-    Task<IEnumerable<ToDoDto>> GetAllByUserIdAsync(Guid userId);
     Task<IEnumerable<ToDoDto>> GetAllAsync();
     Task<ToDoDto> GetByIdAsync(Guid todoId);
     Task<ToDoDto> CreateAsync(Guid userId, ToDoManipulationDto entity);
