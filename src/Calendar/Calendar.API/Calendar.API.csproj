@@ -12,12 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Calendar.Domain\Calendar.Domain.csproj" />
       <ProjectReference Include="..\Calendar.Infrastructure\Calendar.Infrastructure.csproj" />
     </ItemGroup>
